@@ -1,4 +1,4 @@
-package ejercicio01;
+package ejercicio02;
 
 public class BNode<E extends Comparable<E>> {
 

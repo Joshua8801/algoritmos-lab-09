@@ -1,25 +1,24 @@
-package ejercicio01;
+package ejercicio02;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // Crear árbol B
         BTree<Integer> arbol = new BTree<>();
 
-        // Buscar una clave existente en el hijo izquierdo
-        System.out.println(arbol.search(10));
-        System.out.println();
+        System.out.println("Rango [10,40]");
+        arbol.searchRange(10, 40);
 
-        // Buscar una clave existente en el hijo derecho
-        System.out.println(arbol.search(60));
-        System.out.println();
+        System.out.println("Rango [20,60]");
+        arbol.searchRange(20, 60);
 
-        // Buscar una clave que está en la raíz
-        System.out.println(arbol.search(30));
-        System.out.println();
+        System.out.println("Rango [15,35]");
+        arbol.searchRange(15, 35);
 
-        // Buscar una clave inexistente
-        System.out.println(arbol.search(100));
+        System.out.println("Rango [100,200]");
+        arbol.searchRange(100, 200);
+
+        System.out.println("Rango [50,20]");
+        arbol.searchRange(50, 20);
     }
 }

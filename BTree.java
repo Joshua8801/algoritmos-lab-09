@@ -1,79 +1,73 @@
-package ejercicio01;
+package ejercicio02;
 
 public class BTree<E extends Comparable<E>> {
 
-    // Nodo raíz del árbol
     BNode<E> root;
 
+    @SuppressWarnings("unchecked")
     public BTree() {
 
-        // Se construye manualmente un árbol para pruebas
+        // Árbol de ejemplo
 
         root = new BNode<>(4, 1, false);
 
-        // Clave de la raíz
         root.keys[0] = (E) Integer.valueOf(30);
         root.count = 1;
 
-        // Creación de los hijos
         root.children[0] = new BNode<>(4, 2, true);
         root.children[1] = new BNode<>(4, 3, true);
 
-        // Claves del hijo izquierdo
         root.children[0].keys[0] = (E) Integer.valueOf(10);
         root.children[0].keys[1] = (E) Integer.valueOf(20);
         root.children[0].count = 2;
 
-        // Claves del hijo derecho
         root.children[1].keys[0] = (E) Integer.valueOf(40);
         root.children[1].keys[1] = (E) Integer.valueOf(50);
         root.children[1].keys[2] = (E) Integer.valueOf(60);
         root.children[1].count = 3;
     }
 
-    // Método público de búsqueda
-    public boolean search(E cl) {
+    // Búsqueda por rango
+    public void searchRange(E min, E max) {
 
-        // Si el árbol está vacío no hay nada que buscar
-        if (root == null)
-            return false;
+        if (min.compareTo(max) > 0) {
+            System.out.println("Rango inválido");
+            return;
+        }
 
-        // Inicia la búsqueda desde la raíz
-        return search(root, cl);
+        searchRange(root, min, max);
+        System.out.println();
     }
 
-    // Método recursivo de búsqueda
-    private boolean search(BNode<E> node, E cl) {
+    private void searchRange(BNode<E> node, E min, E max) {
 
-        // Índice para recorrer las claves del nodo
-        int i = 0;
+        int i;
 
-        // Busca la posición donde debería estar la clave
-        while (i < node.count &&
-                cl.compareTo(node.keys[i]) > 0) {
+        for (i = 0; i < node.count; i++) {
 
-            i++;
+            // Explora el hijo izquierdo
+            if (!node.leaf &&
+                min.compareTo(node.keys[i]) < 0) {
+
+                searchRange(node.children[i], min, max);
+            }
+
+            // Imprime si la clave pertenece al rango
+            if (node.keys[i].compareTo(min) >= 0 &&
+                node.keys[i].compareTo(max) <= 0) {
+
+                System.out.print(node.keys[i] + " ");
+            }
+
+            // Si ya superó el máximo, termina
+            if (node.keys[i].compareTo(max) > 0) {
+                return;
+            }
         }
 
-        // Verifica si la clave fue encontrada
-        if (i < node.count &&
-                cl.compareTo(node.keys[i]) == 0) {
-
-            System.out.println(
-                    cl + " se encuentra en el nodo "
-                            + node.idNode
-                            + " en la posición "
-                            + i);
-
-            return true;
+        // Explora el último hijo
+        if (!node.leaf) {
+            searchRange(node.children[i], min, max);
         }
-
-        // Si es hoja y no se encontró la clave
-        // significa que no existe en el árbol
-        if (node.leaf)
-            return false;
-
-        // Continúa la búsqueda en el hijo correspondiente
-        return search(node.children[i], cl);
     }
 }
