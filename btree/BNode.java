@@ -39,7 +39,7 @@ public class BNode<E extends Comparable<E>> {
     public boolean searchNode(E key, int pos[]) {
         int i = 0;
 
-        while (z && key.compareTo(keys.get(i)) > 0){
+        while (i < count && key.compareTo(keys.get(i)) > 0){
             i++;
         }
 
