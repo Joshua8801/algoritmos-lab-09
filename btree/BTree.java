@@ -167,10 +167,6 @@ public class BTree<E extends Comparable<E>> {
 
         return result;
     }
-    
-    // =========================
-    // EJERCICIO 1
-    // =========================
 
 
     // Busca una clave
@@ -207,9 +203,6 @@ public class BTree<E extends Comparable<E>> {
         return searchRec(current.childs.get(i), cl);
     }
     
-    // =========================
-    // EJERCICIO 2
-    // =========================
 
 
     // Busca elementos dentro de un rango
@@ -276,7 +269,6 @@ public class BTree<E extends Comparable<E>> {
     // =========================
     // EJERCICIO 3
     // =========================
-
 
     public void remove(E key) {
 
